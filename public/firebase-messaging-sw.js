@@ -22,12 +22,19 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
-  const notificationTitle = payload.notification.title;
+  const notificationTitle = payload.notification.title || '🔥 New Alert';
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/logo192.png',
+    body: payload.notification.body || 'You’ve got a new message!',
+    icon: 'pwa-192x192.png',
+    image: payload.notification.image || 'https://img.freepik.com/free-vector/loudspeaker-me…1146e212f342b858aa4b8290bc7b4773e1adec4cd6&w=1380',
+    badge: 'andy.png',
+    vibrate: [100, 50, 100],
+    actions: [
+      { action: 'open', title: '👀 View Now' },
+      { action: 'dismiss', title: '❌ Ignore' }
+    ],
+    requireInteraction: true,
   };
-
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
