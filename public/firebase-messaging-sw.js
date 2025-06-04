@@ -1,6 +1,8 @@
 /// <reference lib="webworker" />
 /* eslint-env serviceworker */
 /* global importScripts, firebase, self */
+/* eslint-env serviceworker */
+/* global clients */
 
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
@@ -27,4 +29,19 @@ messaging.onBackgroundMessage(function(payload) {
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+// ✅ Add this to handle notification click
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then(function(clientList) {
+      // If already open, focus it
+      for (const client of clientList) {
+        if (client.url === '/' && 'focus' in client) return client.focus();
+      }
+      // If not open, open a new tab
+      if (clients.openWindow) return clients.openWindow('/');
+    })
+  );
 });
