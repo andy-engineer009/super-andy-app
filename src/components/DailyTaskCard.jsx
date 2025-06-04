@@ -52,6 +52,8 @@ const DailyTaskCard = () => {
         ))
       )}
       <div className="wild-bottom" />
+          <img src="airplane.gif" class="airplane" alt="Flying Airplane" />
+
     </div>
   );
 };

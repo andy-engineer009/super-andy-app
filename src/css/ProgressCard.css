@@ -100,3 +100,50 @@
     pointer-events: none;
   }
   
+
+      .airplane {
+      position: absolute;
+      width: 100px;
+      height: auto;
+      animation: flyLoop 20s linear infinite, stunt 5s ease-in-out infinite;
+    }
+
+    @keyframes flyLoop {
+      0% {
+        top: 20%;
+        left: -150px;
+        transform: scale(1) rotate(0deg);
+      }
+      25% {
+        top: 40%;
+        left: 25%;
+      }
+      50% {
+        top: 60%;
+        left: 50%;
+      }
+      75% {
+        top: 30%;
+        left: 75%;
+      }
+      100% {
+        top: 50%;
+        left: 110%;
+        transform: scale(1.1) rotate(360deg);
+      }
+    }
+
+    @keyframes stunt {
+      0%, 100% {
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        transform: rotate(30deg) scale(1.2);
+      }
+      50% {
+        transform: rotate(-30deg) scale(0.9);
+      }
+      75% {
+        transform: rotate(15deg) scale(1.1);
+      }
+    }
